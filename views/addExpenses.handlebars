@@ -1,0 +1,162 @@
+<html lang="en" data-theme="cupcake">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/css/tailwind.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Graduate&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+  </head>
+  <body>
+
+    
+    {{!-- !NAV --}}
+   <div class="navbar bg-base-100">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <label tabindex="0" class="btn btn-ghost btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+      </label>
+      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+        <li><a href="/">Homepage</a></li>
+        <li><a>About</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="navbar-center">
+    <a class="btn btn-ghost normal-case text-xl" href="/">Expense Tracker</a>
+  </div>
+  <div class="navbar-end">
+    <button class="btn btn-ghost btn-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+    </button>
+    <button class="btn btn-ghost btn-circle">
+      <div class="indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+        <span class="badge badge-xs badge-primary indicator-item"></span>
+      </div>
+    </button>
+  </div>
+</div>
+{{!-- !HERO --}}
+<div class="hero min-h-screen bg-base-200 w-full">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">Hello {{user}}</h1>
+      <p class="py-6">In order for you to start your expense tracking journey click the button below .</p>
+      <a href="#next">
+      <button class="btn btn-primary">Get Started</button>
+      </a>
+    </div>
+  </div>
+</div>
+{{!-- !another section where I can Enter expenses and select the type of expenses using dropdown --}}
+<div class="container mx-auto h-screen" id="next">
+  <div class="flex justify-center pt-14">
+    <div class="w-1/2">
+      <form action="" method="POST">
+        <div class="mb-4">
+          <label for="expense" class="sr-only">Expense</label>
+          <input
+            type="text"
+            name="expense"
+            id="expense"
+            placeholder="Enter Expense"
+            class="bg-gray-100 border-2 w-full p-4 rounded-lg"
+          />
+        </div>
+        {{!-- input for price In South African Rands --}}
+        <div class="mb-4">
+          <label for="price" class="sr-only">Price</label>
+          <input
+            type="text"
+            name="price"
+            id="price"
+            placeholder="Enter Price In Rands"
+            class="bg-gray-100 border-2 w-full p-4 rounded-lg"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="type" class="sr-only">Type</label>
+          <select
+            name="typeofexpense"
+            id="type"
+            class="bg-gray-100 border-2 w-full p-4 rounded-lg"
+          >
+          {{!-- default option "Select Expense Type" --}}
+            <option value="Select Expense Type">Select Expense Type</option>
+            <option value="food">Food</option>
+            <option value="transport">Transport</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">
+            Add Expense
+          </button>
+          {{!-- button to view expenses --}}
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-3 mt-8 rounded font-medium w-full"
+            >
+            View Expenses
+            </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <h1 class="text-1xl font-bold text-gray-500 text-center mt-3 pb-3">Your Expenses By Percentage</h1>
+  <div class="mx-auto flex flex-col items-center md:justify-center mt-7 gap-x-10 md:flex-row lg:flex-row">
+    {{!-- heading --}}
+    
+            <div class="">
+                <div class="radial-progress" style="--value:{{foodPercentage}};">{{foodPercentage}}%</div>
+                <p class="text-center">Food</p>
+            </div>
+            <div>
+                <div class="radial-progress" style="--value:{{transportPercentage}};">{{transportPercentage}}%</div>
+                <p class="text-center">Transport</p>
+            </div>
+            <div>
+                <div class="radial-progress" style="--value:{{entertainmentPercentage}};">{{entertainmentPercentage}}%</div>
+                <p class="text-center">Entertainment</p>
+            </div>
+            <div>
+                <div class="radial-progress" style="--value:{{otherPercentage}};">{{otherPercentage}}%</div>
+                <p class="text-center">Other</p>
+            </div>
+ </div>
+</div>
+  
+{{!-- !FOOTER --}}
+<footer class="footer footer-center p-10 bg-base-200 text-primary-content">
+  <div>
+    <img src="/mytranlog.png" alt="logo" width="50" height="50" class="w-32 h-28"/>
+    <p class="font-bold text-base">
+      Expense Tracker
+    </p> 
+    <p>Copyright © 2022 - All right reserved</p>
+  </div> 
+  <div>
+    <div class="grid grid-flow-col gap-4">
+      <a href="https://www.linkedin.com/in/thamsanqa-mpontshane-89a535175/" target="_blank">
+        <img src="/linkedin.png" width="24" height="24">
+      </a> 
+        <a href="">
+            <img src="/github-sign.png" width="24" height="24">
+        </a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
