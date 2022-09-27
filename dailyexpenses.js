@@ -1,11 +1,12 @@
 function dailyExpenses(db){
-    async function addUser(name){
+    async function addUser(name,mail,code){
         const nameRegex = /^[a-zA-Z]+$/;
+        const mailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         const upperName = name.toUpperCase();
         const nameValid = nameRegex.test(upperName);
         const selectName = await db.manyOrNone('select * from users where name = $1',[upperName]);
-        if(selectName.length == 0 && nameValid == true){
-            return await db.none(`INSERT INTO users (name) VALUES ('${upperName}')`);
+        if(selectName.length == 0 && nameValid == true && mailRegex.test(mail)){
+            return await db.none('insert into users (name,email,unique_code) values ($1,$2,$3)',[upperName,mail,code]);
         }
     }
     async function getUser(name){

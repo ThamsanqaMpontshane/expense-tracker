@@ -1,6 +1,8 @@
 CREATE TABLE users (
     id serial primary key,
-    name varchar(255) not null
+    name varchar(255) not null,
+    email varchar(255) not null,
+    unique_code varchar(255) not null
 );
 
 CREATE TABLE expense_types (

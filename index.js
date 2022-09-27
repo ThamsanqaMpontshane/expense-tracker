@@ -8,6 +8,7 @@ import pgPromise from 'pg-promise';
 // import waiterRouter from "./routes/routes.js";
 const app = express();
 const pgp = pgPromise({});
+import ShortUniqueId from 'short-unique-id';
 
 const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/expenses';
 
@@ -47,24 +48,46 @@ app.use(express.static("public"));
 app.get("/", async function (req, res) {
     res.render("index");
 });
-app.post("/addUser", async function (req, res) {
+app.get("/login", async function (req, res) {
+    res.render("login");
+});
+app.get("/signup", async function (req, res) {
+    res.render("signup");
+});
+app.post("/signup", async function (req, res) {
     const { name } = req.body;
-    if (name == "") {
-        req.flash('error', 'Please enter your name');
-        res.redirect('/');
+    const theMail = req.body.email;
+    const user = await expense.getUser(name);
+    const uid = new ShortUniqueId();
+    if(user.length == 0){
+        await expense.addUser(name, theMail, uid());
+        req.flash('success', 'You have successfully signed up');
+        res.redirect("/login");
+    }else{
+        req.flash('error', 'User already exists');
+        res.redirect("/signup");
     }
-    // else if name is not valid
-    // regex
-    const regex = /^[a-zA-Z]+$/;
-    if (regex.test(name) == false) {
-        req.flash('error', 'Please enter a valid name');
-        res.redirect('/');
-        return;
+});
+app.post("/login", async function (req, res) {
+    const theMail = req.body.email;
+    const theCode = req.body.uniqueCode;
+    const getName = await db.manyOrNone('select name from users where email = $1',[theMail]);
+    const name = getName.name;
+    // get Unique code
+    const getCode = await db.manyOrNone('select unique_code from users where email = $1',[theMail]);
+    const code = getCode.unique_code;
+    if(theCode == code){
+    res.redirect(`/addUser/${name}`);
+    }else {
+        if (theCode != code){
+            req.flash('error', 'Invalid code');
+        }
+        else if (theMail != theMail){
+            req.flash('error', 'User does not exist');
+        }
+        res.redirect("/login");
     }
-    await expense.addUser(name);
-    const theSpender = await expense.getUser(name);
-    const user = theSpender[0].name;
-    res.redirect(`/addUser/${user}`);
+
 });
 
 app.get("/addUser/:name", async function (req, res) {
@@ -72,7 +95,6 @@ app.get("/addUser/:name", async function (req, res) {
     const theSpender = await expense.getUser(name);
     const user = theSpender[0].name;
     const theType = await expense.getExpenseType(name);
-    console.log(theType);
     // get the percentage of each type out of the total
     const total = theType.length;
     const food = theType.filter(type => type == "food").length;
