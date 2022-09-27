@@ -3,7 +3,6 @@ CREATE TABLE users (
     name varchar(255) not null
 );
 
--- table for type of expenses
 CREATE TABLE expense_types (
     id serial primary key,
     name varchar(255) not null
@@ -18,4 +17,4 @@ CREATE TABLE addExpenses (
     date date not null,
     expense_type_id integer not null references expense_types(id),
     user_id integer not null references users(id)
-); ex
+); 
