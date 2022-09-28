@@ -62,7 +62,7 @@ app.post("/signup", async function (req, res) {
     if(user.length == 0){
         await expense.addUser(name, theMail, uid());
         req.flash('success', 'You have successfully signed up');
-        res.redirect("/login");
+        res.redirect("back");
     }else{
         req.flash('error', 'User already exists');
         res.redirect("/signup");
@@ -72,10 +72,10 @@ app.post("/login", async function (req, res) {
     const theMail = req.body.email;
     const theCode = req.body.uniqueCode;
     const getName = await db.manyOrNone('select name from users where email = $1',[theMail]);
-    const name = getName.name;
+    const name = getName[0].name;
     // get Unique code
     const getCode = await db.manyOrNone('select unique_code from users where email = $1',[theMail]);
-    const code = getCode.unique_code;
+    const code = getCode[0].unique_code;
     if(theCode == code){
     res.redirect(`/addUser/${name}`);
     }else {
