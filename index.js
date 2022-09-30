@@ -5,6 +5,7 @@ import dailyExpenses from "./dailyexpenses.js";
 import flash from "express-flash";
 import session from "express-session";
 import pgPromise from 'pg-promise';
+import moment from "moment";
 // import waiterRouter from "./routes/routes.js";
 const app = express();
 const pgp = pgPromise({});
@@ -72,22 +73,25 @@ app.post("/login", async function (req, res) {
     const theMail = req.body.email;
     const theCode = req.body.uniqueCode;
     const getName = await db.manyOrNone('select name from users where email = $1',[theMail]);
-    const name = getName[0].name;
-    // get Unique code
-    const getCode = await db.manyOrNone('select unique_code from users where email = $1',[theMail]);
-    const code = getCode[0].unique_code;
-    if(theCode == code){
-    res.redirect(`/addUser/${name}`);
-    }else {
-        if (theCode != code){
-            req.flash('error', 'Invalid code');
+    // console.log(getCode[0].email);
+    // console.log(getName.length);
+    if(getName.length == 0){
+        req.flash('error', 'User does not exist');
+    }else{
+    const user = await expense.getUser(getName[0].name);
+    const code = user[0].unique_code;
+      if(theCode == code){
+        req.flash('success', 'You have successfully logged in');
+      }
+    // error for when email is not found
+      else if(user.length == 0){
+        req.flash('error', 'Email not found');
+      }
+      else{
+            req.flash('error', 'Enter correct code');
         }
-        else if (theMail != theMail){
-            req.flash('error', 'User does not exist');
-        }
-        res.redirect("/login");
     }
-
+    res.redirect(`/addUser/${getName[0].name}`);
 });
 
 app.get("/addUser/:name", async function (req, res) {
@@ -132,6 +136,12 @@ app.post("/addUser/:name", async function (req, res) {
     await expense.addExpense(theExpense, thePrice, fullDate, userId, expenseTypeId);
     res.redirect(`/addUser/${name}`);
 });
+
+
+app.get("/viewexpenses/:name", async function (req, res) {
+    res.render("viewexpenses");
+});
+
 
 
 app.listen(process.env.PORT || 3111, () => {
