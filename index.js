@@ -62,8 +62,13 @@ app.post("/signup", async function (req, res) {
     const uid = new ShortUniqueId();
     if(user.length == 0){
         await expense.addUser(name, theMail, uid());
+        const shortId = await expense.getUser(name);
+        req.session.user = shortId[0].unique_code;
         req.flash('success', 'You have successfully signed up');
-        res.redirect("back");
+        req.flash('theId', shortId[0].unique_code);
+        setTimeout(() => {
+            res.redirect("back");
+        }, 5000);
     }else{
         req.flash('error', 'User already exists');
         res.redirect("/signup");
@@ -74,24 +79,22 @@ app.post("/login", async function (req, res) {
     const theCode = req.body.uniqueCode;
     const getName = await db.manyOrNone('select name from users where email = $1',[theMail]);
     // console.log(getCode[0].email);
-    // console.log(getName.length);
     if(getName.length == 0){
         req.flash('error', 'User does not exist');
-    }else{
+        res.redirect("/login");
+        return;
+    }
     const user = await expense.getUser(getName[0].name);
     const code = user[0].unique_code;
-      if(theCode == code){
-        req.flash('success', 'You have successfully logged in');
+    if(theCode == code && theMail == user[0].email){
+        req.flash('error', 'You have successfully logged in');
+        setTimeout(() => {
+        res.redirect(`/addUser/${getName[0].name}`);
+        }, 3000);
+      }else{
+        req.flash('error', 'Invalid code');
+        res.redirect("/login");
       }
-    // error for when email is not found
-      else if(user.length == 0){
-        req.flash('error', 'Email not found');
-      }
-      else{
-            req.flash('error', 'Enter correct code');
-        }
-    }
-    res.redirect(`/addUser/${getName[0].name}`);
 });
 
 app.get("/addUser/:name", async function (req, res) {
