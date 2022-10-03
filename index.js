@@ -132,18 +132,33 @@ app.post("/addUser/:name", async function (req, res) {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    const fullDate = `${year}-${month}-${day}`;
+    const fullDate = `${day}/${month}/${year}`;
     await expense.addExpense(theExpense, thePrice, fullDate, userId, expenseTypeId);
     res.redirect(`/addUser/${name}`);
 });
 
 
-app.get("/viewexpenses/:name", async function (req, res) {
+app.get("/viewexpenses/:name", async function (req, res) {    
     res.render("viewexpenses");
 });
 
-
-
+app.post("/viewexpenses/:name", async function (req, res) {
+    const { name } = req.params;
+    const firstDate = req.body.dayFrom;
+    const secondDate = req.body.dayTo;
+    const theSorting = req.body.sort;
+    const theSpender = await expense.getUser(name);
+    const userId = theSpender[0].id;
+    if(firstDate == "" || secondDate == ""){
+        req.flash('error', 'Please enter a date');
+        res.redirect(`/viewexpenses/${name}`);
+    }else{
+        const theExpenses = await expense.getExpenses(firstDate, secondDate, userId, theSorting);
+        res.render("viewexpenses", {
+            theExpenses
+        });
+    }
+});
 app.listen(process.env.PORT || 3111, () => {
     console.log("App started at port", process.env.PORT || 3111);
 });

@@ -17,6 +17,20 @@ function dailyExpenses(db){
     async function addExpense(name, amount, date, userId , expenseId){
         return await db.none(`INSERT INTO addExpenses (name, amount, date , expense_type_id , user_id) VALUES ('${name}', '${amount}', '${date}', '${expenseId}', '${userId}')`);
     }
+    // get expensses using date
+    async function getExpenses(firstDate, secondDate, userId, theSorting){
+        const sort = theSorting;
+        if(sort == "amount" && firstDate && secondDate){
+            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by amount`);
+        }else if(sort == "date" && firstDate && secondDate){
+            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by date`);
+        }else if(sort == "name" && firstDate && secondDate){
+            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by name`);
+        }else{
+            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}'`);
+        }
+    }
+
     // select expense_type_id from addExpenses where user_id = (select id from users where name = [name])
     async function getExpenseType(name){
         const upperName = name.toUpperCase();
@@ -39,7 +53,8 @@ function dailyExpenses(db){
         addUser,
         getUser,
         addExpense,
-        getExpenseType
+        getExpenseType,
+        getExpenses
     }
 }
 
