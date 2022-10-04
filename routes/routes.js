@@ -126,7 +126,7 @@ const addExpenseTracker = (expense,db) => {
             res.render("viewexpenses", {
                 toogle: "hidden"
                 });         
-        }else if(theExpenses1 == undefined){
+        }else if(theExpenses1 == undefined || theExpenses1.length == 0){
             req.flash('error', 'No expenses found for this date');
             res.render("viewexpenses", {
                 toogle: "hidden"
