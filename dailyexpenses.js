@@ -21,13 +21,25 @@ function dailyExpenses(db){
     async function getExpenses(firstDate, secondDate, userId, theSorting){
         const sort = theSorting;
         if(sort == "amount" && firstDate && secondDate){
-            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by amount`);
+            const theSort = await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by amount`);
+            if(theSort.length != 0){
+                return theSort;
+            }
         }else if(sort == "date" && firstDate && secondDate){
-            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by date`);
+            const theSort = await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by date`);
+            if(theSort.length != 0){
+                return theSort;
+            }
         }else if(sort == "name" && firstDate && secondDate){
-            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by name`);
+            const theSort = await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}' order by name`);
+            if(theSort.length != 0){
+                return theSort;
+            }
         }else{
-            return await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}'`);
+            const theSort = await db.manyOrNone(`select * from addExpenses where date between '${firstDate}' and '${secondDate}' and user_id = '${userId}'`);
+            if(theSort.length != 0){
+                return theSort;
+            }
         }
     }
 
@@ -48,7 +60,6 @@ function dailyExpenses(db){
         }
         return expenseTypeArray;
     }
-
     return {
         addUser,
         getUser,

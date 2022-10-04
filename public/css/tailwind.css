@@ -2908,12 +2908,6 @@ html {
   background-color: hsl(var(--b1) / var(--tw-bg-opacity));
 }
 
-.table-zebra tbody tr:nth-child(even) th, 
-      .table-zebra tbody tr:nth-child(even) td {
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
-}
-
 :where(.table *:first-child) :where(*:first-child) :where(th, td):first-child {
   border-top-left-radius: 0.5rem;
 }
@@ -3189,6 +3183,10 @@ html {
   display: table;
 }
 
+.table-row {
+  display: table-row;
+}
+
 .grid {
   display: grid;
 }
@@ -3437,8 +3435,8 @@ html {
   padding-top: 1.25rem;
 }
 
-.pt-10 {
-  padding-top: 2.5rem;
+.pt-7 {
+  padding-top: 1.75rem;
 }
 
 .text-center {

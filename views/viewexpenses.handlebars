@@ -1,102 +1,119 @@
 <html lang="en" data-theme="cupcake">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Expense Tracker</title>
-    <link rel="stylesheet" href="/css/tailwind.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Graduate&family=Righteous&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
-  </head>
-  <body>
-     {{!-- !NAV --}}
-   <div class="navbar bg-base-100">
-  <div class="navbar-start">
-    <div class="dropdown">
-      <label tabindex="0" class="btn btn-ghost btn-circle">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-      </label>
-      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a href="/">Homepage</a></li>
-        <li><a>About</a></li>
-      </ul>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="/css/tailwind.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Graduate&family=Righteous&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+</head>
+
+<body>
+  {{! !NAV }}
+  <div class="navbar bg-base-100">
+    <div class="navbar-start">
+      <div class="dropdown">
+        <label tabindex="0" class="btn btn-ghost btn-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+          </svg>
+        </label>
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a href="/">Homepage</a></li>
+          <li><a>About</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="navbar-center">
+      <a class="btn btn-ghost normal-case text-xl" href="/">Expense Tracker</a>
+    </div>
+    <div class="navbar-end">
+      <button class="btn btn-ghost btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </button>
+      <button class="btn btn-ghost btn-circle">
+        <div class="indicator">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+            </path>
+          </svg>
+          <span class="badge badge-xs badge-primary indicator-item"></span>
+        </div>
+      </button>
     </div>
   </div>
-  <div class="navbar-center">
-    <a class="btn btn-ghost normal-case text-xl" href="/">Expense Tracker</a>
-  </div>
-  <div class="navbar-end">
-    <button class="btn btn-ghost btn-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-    </button>
-    <button class="btn btn-ghost btn-circle">
-      <div class="indicator">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-        <span class="badge badge-xs badge-primary indicator-item"></span>
-      </div>
-    </button>
-  </div>
-</div>
- <div class="w-full h-screen">
+  <div class="w-full h-screen">
     <h1 class="text-6xl font-bold text-center pt-8">Welcome To Your Dashboard</h1>
-    <p class="text-center text-3xl font-bold pt-5 text-gray-500">Select day you want to see your expenses for</p>
+    <p class="text-center text-3xl font-bold pt-5 text-gray-500">Select day
+      you want to see your expenses for</p>
     <!--create a calander where I can select an day and submit the selected day-->
     <!-- i can also select dayFrom and DayTo eg. 1/1/2021 - 1/31/2021-->
     <div class="text-red-500 text-center font-bold">
-            {{#if messages.error}}
-            <p class="error">{{messages.error}}</p>
-            {{/if}}
-          </div>
+      {{#if messages.error}}
+      <p class="error">{{messages.error}}</p>
+      {{/if}}
+    </div>
     <div class="flex justify-center">
-        
+
       <form action="" method="POST" class="w-1/2">
-        <div class="flex justify-center mt-4 gap-x-4">
+        <div class="flex justify-center mt-4 gap-x-4 phone:flex-col">
+          {{! !day from }}
           <div class="flex flex-col">
             <label for="dayFrom" class="text-2xl font-bold text-gray-500 text-center">From</label>
-            <input type="date" name="dayFrom" id="dayFrom" class="border-2 border-gray-300 p-2 rounded-lg"/>
+            <input type="date" name="dayFrom" value="{{dayFrom}}" id="dayFrom"
+              class="border-2 border-gray-300 p-2 rounded-lg" required />
           </div>
+          {{! !day to }}
           <div class="flex flex-col">
             <label for="dayTo" class="text-2xl font-bold text-gray-500 text-center">To</label>
-            <input type="date" name="dayTo" id="dayTo" class="border-2 border-gray-300 p-2 rounded-lg"/>
+            <input type="date" name="dayTo" value="{{dayTo}}" id="dayTo" class="border-2 border-gray-300 p-2 rounded-lg"
+              required />
           </div>
-        </div>    
-        
-        <div class="flex justify-center mt-3">
-        <div class="flex justify-center">
-          <div class="flex flex-col">
-            <label for="sort" class="text-2xl font-bold text-gray-500 text-center">Sort By</label>
-            <select name="sort" id="sort" class="border-2 border-gray-300 p-2 rounded-lg">
-              <option value="date">Date</option>
-              <option value="amount">Amount In Rands</option>
-              <option value="name">Name Of Expense</option>
-            </select>
+          {{! !sort by }}
+          <div class="flex justify-center">
+            <div class="flex justify-center">
+              <div class="flex flex-col">
+                <label for="sort" class="text-2xl font-bold text-gray-500 text-center">Sort By</label>
+                <select name="sort" id="sort" class="border-2 border-gray-300 p-2 rounded-lg">
+                  <option value="date">Date</option>
+                  <option value="amount">Amount In Rands</option>
+                  <option value="name">Name Of Expense</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
-    </div>
+
         <div class="flex justify-center">
           <!-- minimalistic button -->
-            <button type="submit" class="btn btn-primary btn-sm mt-5">Submit</button>
+          <button type="submit" class="btn btn-primary btn-sm mt-5">View Expenses</button>
         </div>
       </form>
-      
+
     </div>
     <!-- sort by -->
 
     <!-- place where I am Going to show the expenses -->
-    <div class="flex justify-center pt-10">
+    <div class="flex justify-center pt-7">
       <div class="w-96">
         <h1 class="text-2xl font-bold text-center">Expenses</h1>
         <div class="flex justify-center pt-5">
-          <table class="table w-full table-compact table-zebra">
+          <table class="table w-full table-compact table-row">
             <thead>
               <tr>
                 <th>Expense</th>
                 <th>Amount</th>
+                <th>Date</th>
+                <th>Expense Type</th>
               </tr>
             </thead>
             <tbody>
@@ -104,33 +121,45 @@
               <tr>
                 <td class="uppercase">{{this.name}}</td>
                 <td class="uppercase">R{{this.amount}}</td>
+                <td class="uppercase">{{this.date}}</td>
+                <td class="uppercase">{{this.type}}</td>
               </tr>
               {{/each}}
             </tbody>
+            {{!-- table footer --}}
+            <tfoot class="{{toogle}}">
+              <tr>
+                <td class="uppercase font-bold text-lg">Total</td>
+                <td class="uppercase font-bold text-lg">R{{total}}</td>
+                <td></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
     </div>
- </div>
- {{!-- !FOOTER --}}
-<footer class="footer footer-center p-10 bg-base-200 text-primary-content">
-  <div>
-    <img src="/mytranlog.png" alt="logo" width="50" height="50" class="w-32 h-28"/>
-    <p class="font-bold text-base">
-      Expense Tracker
-    </p> 
-    <p>Copyright © 2022 - All right reserved</p>
-  </div> 
-  <div>
-    <div class="grid grid-flow-col gap-4">
-      <a href="https://www.linkedin.com/in/thamsanqa-mpontshane-89a535175/" target="_blank">
-        <img src="/linkedin.png" width="24" height="24">
-      </a> 
-        <a href="https://github.com/ThamsanqaMpontshane/expense-tracker" target="_blank">
-            <img src="/github-sign.png" width="24" height="24">
-        </a>
-    </div>
   </div>
-</footer>
-  </body>
+  {{! !FOOTER }}
+  <footer class="footer footer-center p-10 bg-base-200 text-primary-content">
+    <div>
+      <img src="/mytranlog.png" alt="logo" width="50" height="50" class="w-32 h-28" />
+      <p class="font-bold text-base">
+        Expense Tracker
+      </p>
+      <p>Copyright © 2022 - All right reserved</p>
+    </div>
+    <div>
+      <div class="grid grid-flow-col gap-4">
+        <a href="https://www.linkedin.com/in/thamsanqa-mpontshane-89a535175/" target="_blank">
+          <img src="/linkedin.png" width="24" height="24" />
+        </a>
+        <a href="https://github.com/ThamsanqaMpontshane/expense-tracker" target="_blank">
+          <img src="/github-sign.png" width="24" height="24" />
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script src="/setTimeout.js"></script>
+</body>
+
 </html>
