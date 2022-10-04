@@ -17,11 +17,12 @@ RUNNING THE TESTS
 * Run `npm test`
 
 TECHNOLOGY USED
----------------
+----------------
 * NodeJS
 * ExpressJS
 * SQL
 * Javascript
+* User Authentication Code: ShortUniqueId
 * Handlebars
 * TailwindCSS
 * Adobe Illustrator
