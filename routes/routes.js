@@ -121,18 +121,21 @@ const addExpenseTracker = (expense,db) => {
         const theSpender = await expense.getUser(name);
         const userId = theSpender[0].id;
         const theExpenses1 = await expense.getExpenses(firstDate, secondDate, userId, theSorting);
+        console.log(theExpenses1);
         if(firstDate == "" || secondDate == ""){
             req.flash('error', 'Please enter a date');
             res.render("viewexpenses", {
                 toogle: "hidden"
                 });         
-        }else if(theExpenses1 == undefined || theExpenses1.length == 0){
-            req.flash('error', 'No expenses found for this date');
-            res.render("viewexpenses", {
-                toogle: "hidden"
+            }
+            // else if theExpenses1 is equal to undifined
+            else if(theExpenses1 == undefined && firstDate != "" && secondDate != ""){
+                req.flash('error', 'No expenses found for this date');
+                res.render("viewexpenses", {
+                    toogle: "hidden"
                 });
-        }
-        else{
+            }     
+            else{
             const theExpenses = await expense.getExpenses(firstDate, secondDate, userId, theSorting);
             // console.log(theExpenses);
             // add the thExpense.amount values together
@@ -153,7 +156,6 @@ const addExpenseTracker = (expense,db) => {
             for(let i = 0; i < theNameOfCategory.length; i++){
                 catergo.push(theNameOfCategory[i]);
             }
-            console.log(catergo);
             const theDates = theExpenses.map(expense => expense.date);
             const theDates1 = theDates.map(date => moment(date).format("MMM Do YY"));
             for(let i = 0; i < theExpenses.length; i++){
@@ -171,7 +173,6 @@ const addExpenseTracker = (expense,db) => {
                     theExpenses[i].type = 'Other';
                 }
             }
-            console.log(theExpenses);
             res.render("viewexpenses", {
                 theExpenses,
                 dayFrom : firstDate,
