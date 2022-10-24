@@ -52,8 +52,8 @@
     <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
       <div class="xl:w-10/12">
         <div class="block bg-white shadow-lg rounded-lg">
-          <div class="lg:flex lg:flex-wrap g-0">
-            <div class="lg:w-6/12 px-4 md:px-0">
+          <div class="xl:flex lg:flex-wrap g-0">
+            <div class="xl:w-6/12 px-4 md:px-0">
               <div class="md:p-12 md:mx-6">
                 <div class="text-center">
                   <img
@@ -66,7 +66,9 @@
                   <p class="mb-4 text-center text-lg font-bold">Sign Up</p>
                   <div class="text-green-500 text-center mt-2 font-bold">
             {{#if messages.success}}
-            <p class="error">{{messages.success}}</p>
+                <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800 error" role="alert">
+                    <p>{{messages.success}}</p>
+                </div>
             {{/if}}
           </div>
                   <div class="mb-4">
@@ -109,21 +111,30 @@
                     </button>
                     </a>
                   </div>
-                  <div class="text-red-500 text-center mt-2 font-bold">
             {{#if messages.error}}
-            <p class="error">{{messages.error}}</p>
+                      <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 error" role="alert">
+                          <p>{{messages.error}}</p>
+                      </div>
             {{/if}}
-          </div>
-          <div class="text-red-500 text-center mt-2 font-bold">
-            {{#if messages.theId}}
-            <p class="error">{{messages.theId}}</p>
-            {{/if}}
-          </div>
                 </form>
+                  {{#if messages.theId}}
+                      <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800 flex flex-row justify-between" role="alert">
+                          <p id="decode">{{messages.theId}}</p>
+                          <!--                    copy to clipboard icon-->
+                          <button class="btn btn-ghost btn-circle copyButton" type="button" >7MirEq
+
+￼
+
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                              </svg>
+                          </button>
+                      </div>
+                  {{/if}}
               </div>
             </div>
             <div
-              class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none"
+              class="xl:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none"
               style="
                 background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
               "
@@ -131,7 +142,7 @@
               <div class="text-white px-4 py-6 md:p-12 md:mx-6">
                 <h4 class="text-xl font-semibold mb-6">This is more than a expense tracker</h4>
                 <p class="text-sm">
-                 The best thing about having a expense tracker is being able to spend money on what you want! maybe you're thinking, "Hey, I'm going to make some extra cash off my hobby." In any case, if you're looking for a way to track how much you spend on your on your daily expenses you've come to the right place.
+                 The best thing about having a expense tracker is being able to spend money on what you want! maybe you're thinking, "Hey, I'm going to make some extra cash off my hobby." In any case, if you're looking for a way to track how much you spend on your daily expenses you've come to the right place.
                 </p>
               </div>
             </div>
@@ -141,9 +152,6 @@
     </div>
   </div>
 </section>
-
-
-
 {{!-- !FOOTER --}}
 <footer class="footer footer-center p-10 bg-base-200 text-primary-content">
   <div>
@@ -164,6 +172,22 @@
     </div>
   </div>
 </footer>
+    <script>
+        function myFunction() {
+            // Get the <p> element value
+            const copyText = document.getElementById("decode").innerHTML;
+            console.log(copyText);
+            // Select the p element
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            // Copy the text inside p element
+            navigator.clipboard.writeText(copyText.value);
+            // Alert the copied text
+            alert("Copied the text: " + copyText.value);
+        }
+        const copyButton = document.getElementsByClassName('copyButton');
+        copyButton.addEventListener('click', myFunction);
+    </script>
 <script src="/setTimeout.js"></script>
   </body>
 </html>

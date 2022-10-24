@@ -16,7 +16,7 @@ const config = {
     connectionString    
 }
 
-if(process.env.NODE_ENV == "production"){
+if(process.env.NODE_ENV === "production"){
     config.ssl = {
         rejectUnauthorized: false
     }
@@ -27,9 +27,12 @@ const expense = dailyExpenses(db);
 const Routes = addExpenseRoutes(expense,db);
 
 app.use(session({
-    secret: "<add a secret string here>",
+    secret: "admin",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        sameSite: "strict"
+    }
 }));
 app.use(flash());
 

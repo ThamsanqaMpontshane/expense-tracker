@@ -15,7 +15,8 @@
 
 <body>
   {{! !NAV }}
-  <div class="navbar bg-base-100">
+<!--  make this nav responsive-->
+  <div class="navbar bg-base-100 md:w-full md:sticky md:top-0 md:z-50">
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost btn-circle">
@@ -55,8 +56,6 @@
     <h1 class="text-6xl font-bold text-center pt-8">Welcome To Your Dashboard</h1>
     <p class="text-center text-3xl font-bold pt-5 text-gray-500">Select day
       you want to see your expenses for</p>
-    <!--create a calander where I can select an day and submit the selected day-->
-    <!-- i can also select dayFrom and DayTo eg. 1/1/2021 - 1/31/2021-->
     <div class="text-red-500 text-center font-bold">
       {{#if messages.error}}
       <p class="error">{{messages.error}}</p>
@@ -65,7 +64,7 @@
     <div class="flex justify-center">
 
       <form action="" method="POST" class="w-1/2">
-        <div class="flex justify-center mt-4 gap-x-4 phone:flex-col">
+        <div class="flex justify-center mt-4 gap-x-4 sm:gap-x-8 sm:flex-col">
           {{! !day from }}
           <div class="flex flex-col">
             <label for="dayFrom" class="text-2xl font-bold text-gray-500 text-center">From</label>
@@ -107,7 +106,7 @@
       <div class="w-96">
         <h1 class="text-2xl font-bold text-center">Expenses</h1>
         <div class="flex justify-center pt-5">
-          <table class="table w-full table-compact table-row">
+          <table class="table w-full table-compact table-row sm:w-full">
             <thead>
               <tr>
                 <th>Expense</th>
@@ -140,7 +139,7 @@
     </div>
   </div>
   {{! !FOOTER }}
-  <footer class="footer footer-center p-10 bg-base-200 text-primary-content">
+  <footer class="footer footer-center p-10 bg-base-200 text-primary-content sm:mt-44">
     <div>
       <img src="/mytranlog.png" alt="logo" width="50" height="50" class="w-32 h-28" />
       <p class="font-bold text-base">

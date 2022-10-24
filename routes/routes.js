@@ -17,7 +17,7 @@ const addExpenseTracker = (expense,db) => {
         const theMail = req.body.email;
         const uid = new ShortUniqueId();
         const user = await expense.getUser(name);
-        if(user.length == 0){
+        if(user.length === 0){
             await expense.addUser(name, theMail, uid());
             const shortId = await expense.getUser(name);
             req.session.user = shortId[0].unique_code;
@@ -36,14 +36,14 @@ const addExpenseTracker = (expense,db) => {
         const theCode = req.body.uniqueCode;
         const getName = await db.manyOrNone('select name from users where email = $1',[theMail]);
         // console.log(getCode[0].email);
-        if(getName.length == 0){
+        if(getName.length === 0){
             req.flash('error', 'User does not exist');
             res.redirect("/login");
             return;
         }
         const user = await expense.getUser(getName[0].name);
         const code = user[0].unique_code;
-        if(theCode == code && theMail == user[0].email){
+        if(theCode === code && theMail === user[0].email){
             req.flash('error', 'You have successfully logged in');
             setTimeout(() => {
             res.redirect(`/addUser/${getName[0].name}`);
@@ -64,10 +64,10 @@ const addExpenseTracker = (expense,db) => {
         const theType = await expense.getExpenseType(name);
         // get the percentage of each type out of the total
         const total = theType.length;
-        const food = theType.filter(type => type == "food").length;
-        const transport = theType.filter(type => type == "transport").length;
-        const entertainment = theType.filter(type => type == "entertainment").length;
-        const other = theType.filter(type => type == "other").length;
+        const food = theType.filter(type => type === "food").length;
+        const transport = theType.filter(type => type === "transport").length;
+        const entertainment = theType.filter(type => type === "entertainment").length;
+        const other = theType.filter(type => type === "other").length;
         const foodPercentage = Math.round((food / total) * 100);
         const transportPercentage = Math.round((transport / total) * 100);
         const entertainmentPercentage = Math.round((entertainment / total) * 100);
@@ -122,14 +122,14 @@ const addExpenseTracker = (expense,db) => {
         const userId = theSpender[0].id;
         const theExpenses1 = await expense.getExpenses(firstDate, secondDate, userId, theSorting);
         console.log(theExpenses1);
-        if(firstDate == "" || secondDate == ""){
+        if(firstDate === "" || secondDate === ""){
             req.flash('error', 'Please enter a date');
             res.render("viewexpenses", {
                 toogle: "hidden"
                 });         
             }
-            // else if theExpenses1 is equal to undifined
-            else if(theExpenses1 == undefined && firstDate != "" && secondDate != ""){
+            // else if theExpenses1 is equal to undefined
+            else if(theExpenses1 === undefined && firstDate !== "" && secondDate !== ""){
                 req.flash('error', 'No expenses found for this date');
                 res.render("viewexpenses", {
                     toogle: "hidden"
@@ -160,16 +160,18 @@ const addExpenseTracker = (expense,db) => {
             const theDates1 = theDates.map(date => moment(date).format("MMM Do YY"));
             for(let i = 0; i < theExpenses.length; i++){
                 theExpenses[i].date = theDates1[i];
-                if(theExpenses[i].expense_type_id == 1){
+                if(theExpenses[i].expense_type_id === 1){
                     theExpenses[i].type = 'Food';
                 }
-                if(theExpenses[i].expense_type_id == 2){
+
+
+                if(theExpenses[i].expense_type_id === 2){
                     theExpenses[i].type = 'Transport';
                 }
-                if(theExpenses[i].expense_type_id == 3){
+                if(theExpenses[i].expense_type_id === 3){
                     theExpenses[i].type = 'Entertainment';
                 }
-                if(theExpenses[i].expense_type_id == 4){
+                if(theExpenses[i].expense_type_id === 4){
                     theExpenses[i].type = 'Other';
                 }
             }
@@ -179,7 +181,8 @@ const addExpenseTracker = (expense,db) => {
                 dayTo: secondDate,
                 toogle: "visible",
                 total,
-                theNameOfCategory
+                theNameOfCategory,
+                theSort: theSorting
             });
         }
     }
