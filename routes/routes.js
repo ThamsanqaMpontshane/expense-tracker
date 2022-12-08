@@ -20,12 +20,11 @@ const addExpenseTracker = (expense,db) => {
         if(user.length === 0){
             await expense.addUser(name, theMail, uid());
             const shortId = await expense.getUser(name);
-            req.session.user = shortId[0].unique_code;
             req.flash('success', 'You have successfully signed up');
             req.flash('theId', shortId[0].unique_code);
             setTimeout(() => {
-                res.redirect("back");
-            }, 5000);
+                res.redirect("/login");
+            }, 3000);
         }else{
             req.flash('error', 'User already exists');
             res.redirect("/signup");
@@ -38,7 +37,7 @@ const addExpenseTracker = (expense,db) => {
         // console.log(getCode[0].email);
         if(getName.length === 0){
             req.flash('error', 'User does not exist');
-            res.redirect("/login");
+            res.redirect("/signup");
             return;
         }
         const user = await expense.getUser(getName[0].name);
@@ -46,7 +45,7 @@ const addExpenseTracker = (expense,db) => {
         if(theCode === code && theMail === user[0].email){
             req.flash('error', 'You have successfully logged in');
             setTimeout(() => {
-            res.redirect(`/addUser/${getName[0].name}`);
+                res.redirect(`/addUser/${user[0].name}`);
             }, 3000);
           }else{
             req.flash('error', 'Invalid code');
@@ -106,7 +105,7 @@ const addExpenseTracker = (expense,db) => {
         const year = date.getFullYear();
         const fullDate = `${day}/${month}/${year}`;
         await expense.addExpense(theExpense, thePrice, fullDate, userId, expenseTypeId);
-        res.redirect("back");
+        res.redirect("/addUser/" + name);
     }
     async function ViewExpenses(req, res) {
         res.render("viewexpenses", {
